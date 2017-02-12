@@ -1,4 +1,4 @@
-import pickle
+import dill as pickle
 
 
 ## \addtogroup Intentions MulticlassSingleLayerNetwork
@@ -92,6 +92,25 @@ class MulticlassSingleLayerNetwork():
             for index in range(len(self.weights[0])):
                 self.weights[row][index] = self.weights[row][index] + self.learning_rate*error[row]*input_vector[index]
 
+
+    @classmethod
+    ## Serialize object and store in given file
+    # @param cls CulturalNetwork class
+    # @param obj CulturalNetwork object to be serialized
+    # @param name Name of the file where the serialization is to be stored
+    def serialize(cls, obj, name):
+        pickle.dump(obj, open(name, "wb"))
+
+    @classmethod
+    ## Deserialize object stored in given file
+    # @param cls CulturalNetwork class
+    # @param name Name of the file where the object is serialize
+    def deserialize(cls, name):
+        try:
+            retval = pickle.load(open(name, "rb"))
+        except IOError:
+            retval = MulticlassSingleLayerNetwork()
+        return retval
 
 ##@}
 #

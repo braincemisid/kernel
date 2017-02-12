@@ -62,7 +62,7 @@ class KernelBrainCemisid:
 
         # ################### INTENTIONS MODULES ########################################################################
         self.episodic_memory = EpisodicMemoriesBlock.deserialize("persistent_memory/episodic_memory.p")
-        self.decisions_block = DecisionsBlock()
+        self.decisions_block = DecisionsBlock.deserialize("persistent_memory/decisions_block.p")
 
         self.internal_state = InternalState()
         self.desired_state = InternalState([0.5,1,1])
@@ -594,6 +594,9 @@ class KernelBrainCemisid:
         ################ INTENTIONS ####################################################################################
         self.episodic_memory = EpisodicMemoriesBlock()
         EpisodicMemoriesBlock.serialize(self.episodic_memory, "persistent_memory/episodic_memory.p")
+        self.decisions_block = DecisionsBlock()
+        DecisionsBlock.serialize(self.decisions_block, "persistent_memory/decisions_block.p")
+
 
     # GEOMETRIC NEURAL BLOCK RELATED METHODS
     # Set some already learned pattern as the addition operator

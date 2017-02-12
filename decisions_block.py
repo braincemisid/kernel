@@ -58,12 +58,35 @@ class DecisionsBlock:
         self.conscious_output = self.unconscious_output[conscious_output_index]
         return self.conscious_output
 
+    @classmethod
+    ## Serialize object and store in given file
+    # @param cls CulturalNetwork class
+    # @param obj CulturalNetwork object to be serialized
+    # @param name Name of the file where the serialization is to be stored
+    def serialize(cls, obj, name):
+        pickle.dump(obj, open(name, "wb"))
+
+    @classmethod
+    ## Deserialize object stored in given file
+    # @param cls CulturalNetwork class
+    # @param name Name of the file where the object is serialize
+    def deserialize(cls, name):
+        try:
+            retval = pickle.load(open(name, "rb"))
+        except IOError:
+            retval = DecisionsBlock()
+        return retval
 ## @}
 #
 
 
 # Tests
 if __name__ == '__main__':
+
+    dec_block = DecisionsBlock.deserialize( "rien.p" )
+    print dec_block.input_memories
+
+
     from cultural_network import CulturalGroup
     from internal_state import InternalState,BiologyCultureFeelings
 
@@ -96,3 +119,5 @@ if __name__ == '__main__':
     print "Unconscious decisions "
     for mem in d_block.unconscious_output:
         print mem.get_tail_knowledge().get_state()
+
+    DecisionsBlock.serialize(d_block, "rien.p")

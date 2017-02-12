@@ -40,7 +40,7 @@ class ConsciousDecisionsBlock():
         self.decision_prediction_block.set_desired_state(self.desired_state)
         self.decision_prediction_block.set_internal_state(self.internal_state)
 
-        # DEFAULT TRAINING, IT CAN BE OVERRIDEN LATER
+        # DEFAULT TRAINING, IT CAN LATER BE OVERRIDEN
         # Create a random training set so that the net can learn the relation prediction = (ei + choice.bcf)/2
         # We require a minimum of 18 points
         training_set = []
@@ -189,6 +189,26 @@ class ConsciousDecisionsBlock():
         predictive_net_training_data = [(self._last_decision_internal_state + self._last_selected_input,
                                     self.internal_state.get_state())]
         self.decision_prediction_block.remodel_predictive_net(predictive_net_training_data)
+
+    @classmethod
+    ## Serialize object and store in given file
+    # @param cls CulturalNetwork class
+    # @param obj CulturalNetwork object to be serialized
+    # @param name Name of the file where the serialization is to be stored
+    def serialize(cls, obj, name):
+        pickle.dump(obj, open(name, "wb"))
+
+    @classmethod
+    ## Deserialize object stored in given file
+    # @param cls CulturalNetwork class
+    # @param name Name of the file where the object is serialize
+    def deserialize(cls, name):
+        try:
+            retval = pickle.load(open(name, "rb"))
+        except IOError:
+            retval = ConsciousDecisionsBlock()
+        return retval
+
 
 ## @}
 #
