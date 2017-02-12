@@ -1,5 +1,5 @@
 ## BrainCEMISID V2.0
-The BrainCEMISID project is the CEMISID's first cognitive architecture that tackles problems such as visual and auditive
+The BrainCEMISID project is the University of Los Andes (Mérida-Venezuela) first cognitive architecture that tackles problems such as visual and auditive
  information representation, sensorial ambiguities solving, basic visual stimula composition into more complex cultural
  information, autonomous intentions-based decision making, among others.
 
@@ -28,6 +28,3 @@ comprehension of their functionality. Run, for instance:
 * Ricardo Bruzual
 * Johan Sosa
 * Breytner Fernández, (breytnerm@gmail.com)
-
-## License
-A short snippet describing the license (MIT, Apache, etc.)
