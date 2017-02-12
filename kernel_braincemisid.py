@@ -64,8 +64,8 @@ class KernelBrainCemisid:
         self.episodic_memory = EpisodicMemoriesBlock.deserialize("persistent_memory/episodic_memory.p")
         self.decisions_block = DecisionsBlock.deserialize("persistent_memory/decisions_block.p")
 
-        self.internal_state = InternalState()
-        self.desired_state = InternalState([0.5,1,1])
+        self.internal_state = InternalState.deserialize("persistent_memory/internal_state.p")
+        self.desired_state = InternalState.deserialize("persistent_memory/desired_state.p")
 
         # Internal state "Ports" (Three components real valued vector)
         self._internal_state_in = None
@@ -151,6 +151,7 @@ class KernelBrainCemisid:
         state_correctly_set = self.internal_state.set_state(states_vector)
         if state_correctly_set:
             self.decisions_block.set_internal_state(self.internal_state.get_state())
+            InternalState.serialize(self.internal_state, "persistent_memory/internal_state.p")
         return state_correctly_set
 
     ## Get internal state
@@ -164,6 +165,7 @@ class KernelBrainCemisid:
         state_correctly_fed = self.internal_state.average_state(states_vector)
         if state_correctly_fed:
             self.decisions_block.set_internal_state(self.internal_state.get_state())
+            InternalState.serialize(self.internal_state, "persistent_memory/internal_state.p")
         return state_correctly_fed
 
     ## Set desired state (Biology, Culture and Feelings)
@@ -174,6 +176,7 @@ class KernelBrainCemisid:
         state_correctly_set = self.desired_state.set_state(states_vector)
         if state_correctly_set:
             self.decisions_block.set_desired_state(self.desired_state.get_state())
+            InternalState.serialize(self.desired_state, "persistent_memory/desired_state.p")
         return state_correctly_set
 
     ## Get desired state
@@ -286,7 +289,7 @@ class KernelBrainCemisid:
             elif self._working_domain == "EPISODES":
                 self._clack_episodes()
             else:
-                self._check_intentions()
+                self._clack_intentions()
         else:
             self.learn()
         self._enable_bbcc = False
@@ -596,7 +599,10 @@ class KernelBrainCemisid:
         EpisodicMemoriesBlock.serialize(self.episodic_memory, "persistent_memory/episodic_memory.p")
         self.decisions_block = DecisionsBlock()
         DecisionsBlock.serialize(self.decisions_block, "persistent_memory/decisions_block.p")
-
+        self.internal_state = InternalState()
+        InternalState.serialize(self.internal_state, "persistent_memory/internal_state.p")
+        self.desired_state = InternalState([0.5,1,1])
+        InternalState.serialize(self.desired_state, "persistent_memory/desired_state.p")
 
     # GEOMETRIC NEURAL BLOCK RELATED METHODS
     # Set some already learned pattern as the addition operator
@@ -665,7 +671,7 @@ class KernelBrainCemisid:
     def _check_episodes(self):
         hearing_id = self._get_hearing_id_recognize()
         em_id = self.episodic_memory.check(hearing_id)
-        # If addition_by_memory doesn't have any knowledge related to the preceding bbc series, proceed with clack
+        # If doesn't have any knowledge related to the preceding bbc series, proceed with clack
         if em_id is None:
             self.state = "MISS"
             return
@@ -693,7 +699,7 @@ class KernelBrainCemisid:
         self._intentions_short_term_memory.append(hearing_id)
         return
 
-    ## Pass check signal to intentions in order to take a decision
+    ## Pass check signal to intentions in order to make a decision
     def _check_intentions(self):
         # Get memories
         memories = self.episodic_memory.retrieve_memories(self._intentions_short_term_memory)
@@ -714,6 +720,10 @@ class KernelBrainCemisid:
 
     ## Pass clack signal to intentions in order to feed back results of decision (InternalState)
     def _clack_intentions(self):
+        self.feed_internal_state( self._internal_state_in )
+        self.decisions_block.conscious_block.feedback( self.internal_state )
+        ##
+        DecisionsBlock.serialize(self.decisions_block, "persistent_memory/decisions_block.p")
         return
 
 ## @}

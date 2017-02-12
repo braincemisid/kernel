@@ -5,7 +5,7 @@ The BrainCEMISID project is the University of Los Andes (Mérida-Venezuela) firs
 
 ## Installation
 
-The BrainCEMISID kernel is written in python. This means that all machines with a 2.7.6 Python interpreter can run the code.
+The BrainCEMISID kernel is written in Python 2.7. This means that all machines with a 2.7 Python interpreter can run the code.
 
 Kernel dependencies:
 * Drill: download and follow installation instructions https://github.com/uqfoundation/dill
@@ -22,7 +22,7 @@ comprehension of their functionality. Run, for instance:
 
 ## Contributors
 
-* Johnathan Monsalve
+* Jonathan Monsalve
 * Julio Muchacho
 * Ricardo Graterol
 * Ricardo Bruzual

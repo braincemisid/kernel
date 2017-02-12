@@ -1,0 +1,14 @@
+(iinternal_state
+InternalState
+p0
+(dp1
+S'culture'
+p2
+F1.0
+sS'biology'
+p3
+F0.4827586206896552
+sS'feelings'
+p4
+F1.0
+sb.
