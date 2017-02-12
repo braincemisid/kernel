@@ -83,10 +83,6 @@ class DecisionsBlock:
 # Tests
 if __name__ == '__main__':
 
-    dec_block = DecisionsBlock.deserialize( "rien.p" )
-    print dec_block.input_memories
-
-
     from cultural_network import CulturalGroup
     from internal_state import InternalState,BiologyCultureFeelings
 
@@ -119,5 +115,3 @@ if __name__ == '__main__':
     print "Unconscious decisions "
     for mem in d_block.unconscious_output:
         print mem.get_tail_knowledge().get_state()
-
-    DecisionsBlock.serialize(d_block, "rien.p")
