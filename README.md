@@ -1,5 +1,7 @@
 ## BrainCEMISID V2.0
-The BrainCEMISID project is the CEMISID's first cognitive architecture that tackles problems such as visual and auditive information representation, sensorial ambiguities solving, basic visual stimula composition into more complex cultural information, autonomous intentions-based decision making, among others.
+The BrainCEMISID project is the CEMISID's first cognitive architecture that tackles problems such as visual and auditive
+ information representation, sensorial ambiguities solving, basic visual stimula composition into more complex cultural
+ information, autonomous intentions-based decision making, among others.
 
 ## Installation
 
@@ -11,11 +13,12 @@ Kernel dependencies:
 A simple user interface is provided as a demo. Its dependencies are:
 * Kivy 1.9.1, available at https://kivy.org/#download. Follow the installation instructions.
 
-Run: 
->> python main.py 
+Running:
+```python main.py```
 
-Most of the modules, such as the MulticlassSingleLayerNetwork, contain independent tests that can be of help for the comprehension of their functionality. For instance:
->> python multiclass_single_layer_network.py
+Most of the modules, such as the MulticlassSingleLayerNetwork, contain independent tests that can be of help for the
+comprehension of their functionality. Run, for instance:
+ ```python multiclass_single_layer_network.py```
 
 ## Contributors
 
